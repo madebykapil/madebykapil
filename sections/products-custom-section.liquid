@@ -1,0 +1,188 @@
+{%- liquid
+  assign products_to_display = section.settings.lpcollection.all_products_count
+
+  if section.settings.lpcollection.all_products_count > section.settings.products_to_show
+    assign products_to_display = section.settings.products_to_show
+    assign more_in_collection = true
+  endif
+-%}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+{%- if section.settings.title != blank -%}
+<div class="section-top-container top-bottom-pad" style="text-align: center;"><h2>{{ section.settings.title }}</h2></div>
+{%- endif -%}
+<swiper-container class="page-width" init="false">
+  {%- for prd in section.settings.lpcollection.products limit: section.settings.products_to_show -%}
+  <swiper-slide>
+  <div class="card">
+    <div class="card-media">
+      <img src="{{ prd.featured_media | image_url: width: 1066 }} " alt="{{prd.title}}">
+    </div>
+    <div class="card-content">
+      <h3 class="card-heading">{{prd.title}}</h3>
+      <div class="price-container">
+        <span class="regular-price">{{prd.price | money_with_currency}}</span>
+      </div>
+    </div>
+  </div>
+  </swiper-slide>
+  {%- endfor -%}
+</swiper-container>
+{%- if section.settings.lp_show_view_all and more_in_collection -%}
+<div class="view-all-container center collection__view-all top-bottom-pad">
+  <a href="{{ section.settings.lpcollection.url }}" class="view-all-btn button">{{section.settings.viewall_btn}}</a>
+</div>
+{%- endif -%}
+<script>
+  const swiperEl = document.querySelector('swiper-container');
+  const swiperParams = {
+    slidesPerView: {{section.settings.columns_mobile}},
+    breakpoints: {
+      640: {
+        slidesPerView: {{section.settings.columns_desktop}},
+      },
+    },
+    on: {
+      init() {
+        // ...
+      },
+    },
+  };
+  Object.assign(swiperEl, swiperParams);
+  swiperEl.initialize();
+</script>
+<style type="text/css">
+  * {
+    margin:0px;
+    padding:0px;
+  } 
+  .top-bottom-pad{
+    padding: 3% 0;
+  }
+  .latet-product-card-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  .latet-product-card-section h2 {
+    color: var(--Color-Tokens-Accent-1, #000);
+    text-align: center;
+    font-family: Assistant;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .product-container ul{
+    display: flex;
+    width: 1072px;
+    height: auto;
+    align-items: flex-start;
+    gap: 10px;
+    margin:0 auto;
+  }
+  .product-container ul li{
+    flex: 1 0 0;
+    list-style:none;
+    align-self: stretch;
+  }
+  .card {
+
+  }
+  .card-media img{
+    width: 261px;
+    height: 272px;
+  }
+  .card-content .card-heading {
+    color: var(--Text-color-Default-text, #121212);
+    font-family: Assistant;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 21px */
+    letter-spacing: 0.28px;
+  }
+  .price-container .regular-price {
+    color: var(--Text-color-Default-text, #121212);
+
+    /* body1 */
+    font-family: Assistant;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 172%; /* 27.52px */
+    letter-spacing: 0.64px;
+  }
+</style>
+{% schema %}
+{
+  "name": "products-custom-section",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Section Title"
+    },
+    {
+      "type": "collection",
+      "id": "lpcollection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "Total products to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns on desktop"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2,
+      "label": "Columns on mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "lp_show_view_all",
+      "default": true,
+      "label": "Show All Products Button"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "viewall_btn",
+      "default": "View All",
+      "label": "All Products Button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Custom Section"
+    }
+  ]
+}
+{% endschema %}
