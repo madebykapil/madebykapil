@@ -36,13 +36,17 @@
 <script>
   const swiperEl = document.querySelector('swiper-container');
   const swiperParams = {
-    slidesPerView: {{section.settings.columns_mobile}},
+    slidesPerView: 4,
     
     breakpoints: {
-      
+      991: {
+        slidesPerView: 3,
+      },
+      640: {
+        slidesPerView: 2,
+      }, 
       430: {
-        slidesPerView: {{section.settings.columns_desktop}},
-        initialSlide: 2,
+        slidesPerView: 1,
       },
     },
     on: {
