@@ -37,10 +37,15 @@
   const swiperEl = document.querySelector('swiper-container');
   const swiperParams = {
     slidesPerView: {{section.settings.columns_mobile}},
+    
     breakpoints: {
+      980: {
+        slidesPerView: {{section.settings.columns_desktop}},
+        initialSlide: 3,
+      },
       640: {
         slidesPerView: {{section.settings.columns_desktop}},
-        initialSlide: 1,
+        initialSlide: 2,
       },
     },
     on: {
@@ -121,6 +126,11 @@
     font-weight: 400;
     line-height: 172%; /* 27.52px */
     letter-spacing: 0.64px;
+  }
+  @media screen and (max-width:639px) {
+    .card-content {
+      text-align:center;
+    }
   }
 </style>
 {% schema %}
