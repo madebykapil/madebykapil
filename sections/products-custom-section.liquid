@@ -38,16 +38,16 @@
   const swiperParams = {
     breakpoints: {
       1025: {
-        slidesPerView: 4,
+        slidesPerView: {{section.settings.columns_desktop}},
       },
       991: {
-        slidesPerView: 3,
+        slidesPerView: {{section.settings.columns_tab}},
       },
       640: {
-        slidesPerView: 2,
+        slidesPerView: {{section.settings.columns_mobile}},
       }, 
       430: {
-        slidesPerView: 1,
+        slidesPerView: {{section.settings.columns_small_mobile}},
       },
     },
     on: {
@@ -170,7 +170,16 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Columns on desktop"
+      "label": "Columns on Desktop"
+    },
+    {
+      "type": "range",
+      "id": "columns_tab",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Columns on Tab"
     },
     {
       "type": "range",
@@ -179,7 +188,16 @@
       "max": 6,
       "step": 1,
       "default": 2,
-      "label": "Columns on mobile"
+      "label": "Columns on Mobile"
+    },
+    {
+      "type": "range",
+      "id": "columns_small_mobile",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 1,
+      "label": "Columns on Small Mobile"
     },
     {
       "type": "checkbox",
