@@ -55,7 +55,9 @@
         "lpcollection": "frontpage",
         "products_to_show": 10,
         "columns_desktop": 4,
-        "columns_mobile": 1,
+        "columns_tab": 3,
+        "columns_mobile": 2,
+        "columns_small_mobile": 1,
         "lp_show_view_all": true,
         "viewall_btn": "View All"
       }
